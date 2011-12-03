@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Kogeto Dot Cylindrical Player</title>
+  </head>
+  <body>
+    <script src="Three.js"></script>
+
+    <!-- http://www.kogeto.com/dotspots/RBG9212DOK5Y -->
+    <video id="video" autoplay loop cross-origin="" style="display:none">
+      <!--http://cdn1.kogeto.com/1321979663e4da1.mp4-->
+      <source src="1321979663e4da1.mp4" type='video/mp4; codecs="avc1.42  E01E, mp4a.40.2"'>
+    </video>
+
+<script>
+    var camera, scene, renderer;
+
+    var width = 700, height = 313, rotation = 0;
+    var horizontalFOV = 100;
+    var horizontalFOVRad = horizontalFOV * Math.PI / 180;
+    var verticalFOV = 2 * Math.atan(Math.tan((horizontalFOVRad) / 2) / (width / height)) * 180 / Math.PI,
+    isUserInteracting = false,
+    onMouseDownMouseX = 0, onMouseDownMouseY = 0,
+    lon = 0, onMouseDownLon = 0,
+    lat = 0, onMouseDownLat = 0,
+    phi = 0, theta = 0;
+    var video, texture;
+
+    init();
+    animate();
+
+    function init() {
+        camera = new THREE.PerspectiveCamera(verticalFOV, width / height, 1, 5);
+
+        scene = new THREE.Scene();
+        scene.add(camera);
+
+        video = document.getElementById('video');
+        texture = new THREE.Texture(video);
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+
+        var mesh = new THREE.Mesh(new THREE.CylinderGeometry(1.863, 1.863, 2, 32, 1, true), new THREE.MeshBasicMaterial({ map: texture }));
+        mesh.scale.x = -1;
+        scene.add(mesh);
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(width, height);
+
+        document.body.appendChild(renderer.domElement);
+
+        document.addEventListener('mousedown', onDocumentMouseDown, false);
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.addEventListener('mouseup', onDocumentMouseUp, false);
+    }
+
+    function onDocumentMouseDown(event) {
+        event.preventDefault();
+        isUserInteracting = true;
+        onPointerDownPointerX = event.clientX;
+    }
+
+    function onDocumentMouseMove(event) {
+        if (isUserInteracting)
+            camera.rotation.y += ((event.clientX - onPointerDownPointerX) / width) * horizontalFOVRad;
+    }
+
+    function onDocumentMouseUp(event) {
+        isUserInteracting = false;
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        render();
+    }
+
+    function render() {
+        if (video.readyState === video.HAVE_ENOUGH_DATA)
+            texture.needsUpdate = true;
+        renderer.render(scene, camera);
+    }
+
+</script>
+  </body>
+</html>
