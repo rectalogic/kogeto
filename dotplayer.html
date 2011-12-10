@@ -5,11 +5,12 @@
   </head>
   <body>
     <script src="Three.js"></script>
+    <script src="RequestAnimationFrame.js"></script>
 
     <!-- http://www.kogeto.com/dotspots/RBG9212DOK5Y -->
-    <video id="video" autoplay loop cross-origin="" style="display:none">
+    <video id="video" autoplay loop crossorigin style="display:none">
       <!--http://cdn1.kogeto.com/1321979663e4da1.mp4-->
-      <source src="1321979663e4da1.mp4" type='video/mp4; codecs="avc1.42  E01E, mp4a.40.2"'>
+      <source src="trimmed.mp4" type='video/mp4; codecs="avc1.42  E01E, mp4a.40.2"'>
     </video>
 
 <script>
@@ -82,5 +83,13 @@ function play() {
 play();
 
 </script>
+
+    <div>
+      Drag left/right to pan video.
+    </div>
+    <div>
+      Mute <input type="checkbox" onclick="document.getElementById('video').muted = this.checked"/>
+    </div>
+
   </body>
 </html>
