@@ -8,6 +8,7 @@
     <script src="RequestAnimationFrame.js"></script>
 
     <!-- http://www.kogeto.com/dotspots/RBG9212DOK5Y -->
+    <!-- Kogeto CDN is S3 and they don't support CORS yet http://enable-cors.org/ -->
     <video id="video" autoplay loop crossorigin style="display:none">
       <!--http://cdn1.kogeto.com/1321979663e4da1.mp4-->
       <source src="trimmed.mp4" type='video/mp4; codecs="avc1.42  E01E, mp4a.40.2"'>
@@ -89,6 +90,13 @@ play();
     </div>
     <div>
       Mute <input type="checkbox" onclick="document.getElementById('video').muted = this.checked"/>
+    </div>
+
+    <div>
+      WebGL and HTML5 video Kogeto Dot player.
+      The Kogeto CDN is S3 and it doesn't support CORS yet,
+      so we can't use the remote video as a WebGL texture.
+      So the video clip is local. See <a href="http://blog.chromium.org/2011/07/using-cross-domain-images-in-webgl-and.html">this article</a>.
     </div>
 
   </body>
