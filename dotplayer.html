@@ -2,17 +2,28 @@
 <html lang="en">
   <head>
     <title>Kogeto Dot Cylindrical Player</title>
-  </head>
-  <body>
     <script src="Three.js"></script>
     <script src="RequestAnimationFrame.js"></script>
-
+  </head>
+  <body>
+    <p>
+    You need HTML5 video with H.264 support, and WebGL.
+    Probably works best in Chrome.
+    </p>
     <!-- http://www.kogeto.com/dotspots/RBG9212DOK5Y -->
     <!-- Kogeto CDN is S3 and they don't support CORS yet http://enable-cors.org/ -->
-    <video id="video" autoplay loop crossorigin style="display:none">
+    <p>
+    Source <i>dewarped</i> video being used as WebGL texture in the bottom player below.
+    </p>
+    <p>
+      Mute <input type="checkbox" onclick="document.getElementById('video').muted = this.checked"/>
+    </p>
+    <p>
+    <video id="video" autoplay loop crossorigin>
       <!--http://cdn1.kogeto.com/1321979663e4da1.mp4-->
       <source src="trimmed.mp4" type='video/mp4; codecs="avc1.42  E01E, mp4a.40.2"'>
     </video>
+    </p>
 
 <script>
 function DotPlayer() {
@@ -85,19 +96,27 @@ play();
 
 </script>
 
-    <div>
+    <p>
       Drag left/right to pan video.
-    </div>
-    <div>
-      Mute <input type="checkbox" onclick="document.getElementById('video').muted = this.checked"/>
-    </div>
+    </p>
 
-    <div>
-        WebGL and HTML5 video <a href="http://www.kogeto.com/say-hello-to-dot">Kogeto Dot</a> player.
-      The Kogeto CDN is S3 and it doesn't support CORS yet,
-      so we can't use the remote video as a WebGL texture.
+    <p>
+      WebGL and HTML5 video <a href="http://www.kogeto.com/say-hello-to-dot">Kogeto Dot</a> player.
+      The HTML5 &lt;video&gt; is texture mapped onto the inside of a cylinder.
+      The 3D camera (eye) sits in the center of the cylinder and rotates
+      around one axis to view video playing on the cylinder.
+    </p>
+    <p>
+      The Kogeto CDN is S3 and it doesn't support
+      <a href="http://enable-cors.org/">CORS</a> yet,
+      so we can't directly use the remote video as a WebGL texture.
       So the video clip is local. See <a href="http://blog.chromium.org/2011/07/using-cross-domain-images-in-webgl-and.html">this article</a>.
-    </div>
+    </p>
+    <p>
+      It would also be interesting to implement a player for the raw
+      non-dewarped Kogeto video (the "donut" shaped video) that is recorded,
+      i.e. by texture mapping this onto the inside of a hemisphere.
+    </p>
 
   </body>
 </html>
